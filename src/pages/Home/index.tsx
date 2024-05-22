@@ -7,26 +7,14 @@ import cafeComLeite from '../../assets/coffees/leite.png'
 import latte from '../../assets/coffees/latte.png'
 import cappucino from '../../assets/coffees/capuccino.png'
 import macchiato from '../../assets/coffees/macchiato.png'
-import mocaccino from '../../assets/coffees/mocaccino.png'
-import chocolateQuente from '../../assets/coffees/chocolate-quente.png'
-import cubano from '../../assets/coffees/cubano.png'
-import havaiano from '../../assets/coffees/havaiano.png'
-import arabe from '../../assets/coffees/arabe.png'
-import irlandes from '../../assets/coffees/irlandes.png'
+
 import {
-  MapPin,
   ShoppingCartSimple,
-  MapPinLine,
-  Trash,
-  CurrencyDollar,
   Timer,
   Package,
   Coffee,
   Plus,
   Minus,
-  CreditCard,
-  Money,
-  Bank,
 } from '@phosphor-icons/react'
 
 export function Home() {

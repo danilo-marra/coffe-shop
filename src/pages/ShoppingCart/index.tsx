@@ -1,5 +1,5 @@
 import expressoTradicional from '../../assets/coffees/expresso-tradicional.png'
-import latte from '../../assets/coffees/latte.png'
+import { useState } from 'react'
 import {
   Minus,
   Plus,
@@ -12,6 +12,8 @@ import {
 } from '@phosphor-icons/react'
 
 export function ShoppingCart() {
+  const [isHovered, setIsHovered] = useState(false)
+
   return (
     <form className="mb-20 md:flex justify-evenly md:gap-x-10 xl:gap-x-0">
       <div className="md:w-[640px]">
@@ -92,7 +94,7 @@ export function ShoppingCart() {
           </div>
           <div className="md:flex justify-evenly">
             <div className="mx-4">
-              <button className="bg-button p-3 rounded-md w-full flex items-center justify-center">
+              <button className="bg-button p-3 rounded-md w-full flex items-center justify-center hover:bg-hover focus:bg-purpleLight active:bg-purpleLight focus:outline-none focus:ring-1 focus:ring-purple">
                 <CreditCard color="#8047F8" />
                 <p className="ml-3 uppercase text-text text-lg md:text-sm">
                   Cartão de Crédito
@@ -101,7 +103,7 @@ export function ShoppingCart() {
             </div>
 
             <div className="mx-4">
-              <button className="bg-button p-3 rounded-md w-full justify-center flex items-center my-4 md:my-0">
+              <button className="bg-button p-3 rounded-md w-full justify-center flex items-center my-4 md:my-0 hover:bg-hover focus:bg-purpleLight active:bg-purpleLight focus:outline-none focus:ring-1 focus:ring-purple">
                 <Bank color="#8047F8" />
                 <p className="ml-3 uppercase text-text text-lg md:text-sm">
                   Cartão de Débito
@@ -110,7 +112,7 @@ export function ShoppingCart() {
             </div>
 
             <div className="mx-4">
-              <button className="bg-button p-3 rounded-md w-full justify-center flex items-center">
+              <button className="bg-button p-3 rounded-md w-full justify-center flex items-center hover:bg-hover focus:bg-purpleLight active:bg-purpleLight focus:outline-none focus:ring-1 focus:ring-purple">
                 <Money color="#8047F8" />
                 <p className="ml-3 uppercase text-text text-lg md:text-sm">
                   Dinheiro
@@ -122,7 +124,7 @@ export function ShoppingCart() {
       </div>
       <div className="md:w-[448px]">
         <h1 className="font-baloo2 text-title text-3xl mb-2 text-center md:text-left">
-          Cafés Selecioanados
+          Cafés Selecionados
         </h1>
 
         <div className="bg-card rounded-md pb-10 mb-6 rounded-tr-3xl rounded-bl-3xl">
@@ -135,22 +137,28 @@ export function ShoppingCart() {
                 <p className="text-subtitle">Expresso Tradicional</p>
                 <div className="flex items-center">
                   <div className="bg-button p-1 rounded-lg flex mr-2">
-                    <button>
-                      <Minus color="#8047F8" />
+                    <button
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
+                    >
+                      <Minus color={isHovered ? '#4B2995' : '#8047F8'} />
                     </button>
                     <input
                       className="hide-number-controls bg-button text-center w-6 mx-1"
                       type="number"
                       placeholder="1"
                     />
-                    <button>
-                      <Plus color="#8047F8" />
+                    <button
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
+                    >
+                      <Plus color={isHovered ? '#4B2995' : '#8047F8'} />
                     </button>
                   </div>
                   <div>
-                    <button className="flex items-center bg-button p-2 rounded-md">
+                    <button className="flex items-center bg-button p-2 rounded-md hover:bg-hover focus:bg-purpleLight active:bg-purpleLight focus:outline-none focus:ring-1 focus:ring-purple">
                       <Trash color="#8047F8" />
-                      <span className="ml-1 text-text uppercase text-lg md:text-sm">
+                      <span className="ml-1 text-text uppercase text-sm md:text-md">
                         Remover
                       </span>
                     </button>
@@ -163,43 +171,6 @@ export function ShoppingCart() {
             </div>
             <hr className="bg-button mx-4 my-6" />
           </div>
-          <div className="pt-6">
-            <div className="flex items-center justify-around">
-              <div className="size-16">
-                <img src={latte} alt="Latte" />
-              </div>
-              <div>
-                <p className="text-subtitle">Latte</p>
-                <div className="flex items-center">
-                  <div className="bg-button p-1 rounded-lg flex mr-2">
-                    <button>
-                      <Minus color="#8047F8" />
-                    </button>
-                    <input
-                      className="hide-number-controls bg-button text-center w-6 mx-1"
-                      type="number"
-                      placeholder="1"
-                    />
-                    <button>
-                      <Plus color="#8047F8" />
-                    </button>
-                  </div>
-                  <div>
-                    <button className="flex items-center bg-button p-2 rounded-md">
-                      <Trash color="#8047F8" />
-                      <span className="ml-1 text-text uppercase text-lg md:text-sm">
-                        Remover
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="self-start">
-                <p className="font-bold">R$ 19,86</p>
-              </div>
-            </div>
-            <hr className="bg-button mx-4 my-6" />
-          </div>
 
           <div className="mx-4">
             <div className="flex justify-between">
@@ -208,7 +179,7 @@ export function ShoppingCart() {
             </div>
             <div className="flex justify-between">
               <span>Entrega</span>
-              <span>R$3,50</span>
+              <span>R$ 3,50</span>
             </div>
             <div className="flex justify-between font-bold text-xl">
               <span>Total</span>
