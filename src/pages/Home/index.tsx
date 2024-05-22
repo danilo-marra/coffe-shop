@@ -124,8 +124,8 @@ export function Home() {
                   <Minus />
                 </button>
                 <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold"
-                  type="text"
+                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls"
+                  type="number"
                   placeholder="0"
                 />
                 <button>
@@ -174,8 +174,8 @@ export function Home() {
                   <Minus />
                 </button>
                 <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold"
-                  type="text"
+                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls "
+                  type="number"
                   placeholder="0"
                 />
                 <button>
@@ -224,8 +224,8 @@ export function Home() {
                   <Minus />
                 </button>
                 <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold"
-                  type="text"
+                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold  hide-number-controls"
+                  type="number"
                   placeholder="0"
                 />
                 <button>
@@ -277,8 +277,8 @@ export function Home() {
                   <Minus />
                 </button>
                 <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold"
-                  type="text"
+                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls"
+                  type="number"
                   placeholder="0"
                 />
                 <button>
@@ -330,8 +330,8 @@ export function Home() {
                   <Minus />
                 </button>
                 <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold"
-                  type="text"
+                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls"
+                  type="number"
                   placeholder="0"
                 />
                 <button>
@@ -381,8 +381,8 @@ export function Home() {
                   <Minus />
                 </button>
                 <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold"
-                  type="text"
+                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls"
+                  type="number"
                   placeholder="0"
                 />
                 <button>
@@ -434,8 +434,8 @@ export function Home() {
                   <Minus />
                 </button>
                 <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold"
-                  type="text"
+                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls"
+                  type="number"
                   placeholder="0"
                 />
                 <button>
@@ -487,8 +487,8 @@ export function Home() {
                   <Minus />
                 </button>
                 <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold"
-                  type="text"
+                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls"
+                  type="number"
                   placeholder="0"
                 />
                 <button>

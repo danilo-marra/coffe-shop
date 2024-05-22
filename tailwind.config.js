@@ -29,6 +29,24 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.hide-number-controls': {
+          '-webkit-appearance': 'none',
+          '-moz-appearance': 'textfield',
+        },
+        '.hide-number-controls::-webkit-outer-spin-button': {
+          '-webkit-appearance': 'none',
+          margin: '0',
+        },
+        '.hide-number-controls::-webkit-inner-spin-button': {
+          '-webkit-appearance': 'none',
+          margin: '0',
+        },
+        // eslint-disable-next-line prettier/prettier
+      });
+    },
+  ],
   // eslint-disable-next-line prettier/prettier
 };
