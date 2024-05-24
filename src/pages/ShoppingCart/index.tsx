@@ -1,4 +1,4 @@
-import expressoTradicional from '../../assets/coffees/expresso-tradicional.png'
+import expressoTradicional from '../../../public/coffees/expresso-tradicional.png'
 import { useState } from 'react'
 import {
   Minus,

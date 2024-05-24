@@ -1,23 +1,38 @@
+import { useState, useEffect } from 'react'
+import { useOutletContext } from 'react-router-dom'
 import imagemCafe from '../../assets/imagem-cafe.png'
-import expressoTradicional from '../../assets/coffees/expresso-tradicional.png'
-import expressoAmericano from '../../assets/coffees/expresso-americano.png'
-import expressoCremoso from '../../assets/coffees/cremoso.png'
-import expressoGelado from '../../assets/coffees/gelado.png'
-import cafeComLeite from '../../assets/coffees/leite.png'
-import latte from '../../assets/coffees/latte.png'
-import cappucino from '../../assets/coffees/capuccino.png'
-import macchiato from '../../assets/coffees/macchiato.png'
+import { CoffeeCard, CoffeeType } from '../../components/CoffeeCard'
+import coffeesData from '../../assets/data/coffees.json'
+
+import { v4 as uuidv4 } from 'uuid'
 
 import {
   ShoppingCartSimple,
   Timer,
   Package,
   Coffee,
-  Plus,
-  Minus,
 } from '@phosphor-icons/react'
 
+interface OutletContextProps {
+  addToCart: (count: number) => void
+  totalItemCount: number
+}
+
 export function Home() {
+  const { addToCart } = useOutletContext<OutletContextProps>()
+
+  const [coffees, setCoffees] = useState<CoffeeType[]>([])
+
+  useEffect(() => {
+    // Adicione ids únicos se necessário
+    const coffeesWithId = coffeesData.map((coffee: Omit<CoffeeType, 'id'>) => ({
+      ...coffee,
+      id: uuidv4(),
+    }))
+    setCoffees(coffeesWithId)
+  }, [])
+
+  // console.log(coffees)
   return (
     <main className="mb-20">
       <section className="lg:flex">
@@ -77,419 +92,16 @@ export function Home() {
         <h2 className="font-baloo2 text-title text-5xl text-center md:text-left">
           Nossos Cafés
         </h2>
-        <div className="mt-14 flex flex-wrap justify-center lg:justify-start xl:justify-around gap-10">
-          <div className="bg-card relative w-[18rem] rounded-tr-3xl rounded-bl-3xl py-5">
-            <div className="text-center absolute w-full -top-[1.5rem] flex justify-center">
-              <img
-                className="mx-auto"
-                src={expressoTradicional}
-                alt="Café Expresso Tradicional"
+        <div className="mt-14 flex flex-wrap justify-center gap-10">
+          {coffees.map((coffee) => {
+            return (
+              <CoffeeCard
+                key={coffee.id}
+                coffee={coffee}
+                onAddToCart={addToCart}
               />
-            </div>
-            <div className="text-center mt-24">
-              <div className="my-6">
-                <span className="text-yellowDark bg-yellowLight p-2 uppercase font-bold text-sm rounded-xl mx-2">
-                  tradicional
-                </span>
-              </div>
-            </div>
-            <div className="text-center">
-              <h3 className="font-baloo2 text-subtitle text-2xl px-2">
-                Expresso Tradicional
-              </h3>
-              <p className="text-label px-2 mt-5 mb-10">
-                O tradicional café feito com água quente e grãos moídos
-              </p>
-            </div>
-            <div className="px-4 flex items-center justify-around">
-              <div>
-                <p className="text-subtitle text-sm">
-                  R$<span className="font-baloo2 text-3xl ml-1">9,90</span>
-                </p>
-              </div>
-              <div className="bg-button p-2 rounded-lg flex">
-                <button>
-                  <Minus />
-                </button>
-                <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls"
-                  type="number"
-                  placeholder="0"
-                />
-                <button>
-                  <Plus />
-                </button>
-              </div>
-              <div>
-                <button className="bg-purpleDark p-2 rounded-lg">
-                  <ShoppingCartSimple size={24} color="#FAFAFA" weight="fill" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-card relative w-[18rem] rounded-tr-3xl rounded-bl-3xl py-5">
-            <div className="text-center absolute w-full -top-[1.5rem] flex justify-center">
-              <img
-                className="mx-auto"
-                src={expressoAmericano}
-                alt="Expresso Americano"
-              />
-            </div>
-            <div className="text-center mt-24">
-              <div className="my-6">
-                <span className="text-yellowDark bg-yellowLight p-2 uppercase font-bold text-sm rounded-xl mx-2">
-                  tradicional
-                </span>
-              </div>
-            </div>
-            <div className="text-center">
-              <h3 className="font-baloo2 text-subtitle text-2xl px-2">
-                Expresso Americano
-              </h3>
-              <p className="text-label px-2 mt-5 mb-10">
-                Expresso diluído, menos intenso que o tradicional
-              </p>
-            </div>
-            <div className="px-4 flex items-center justify-around">
-              <div>
-                <p className="text-subtitle text-sm">
-                  R$<span className="font-baloo2 text-3xl ml-1">9,90</span>
-                </p>
-              </div>
-              <div className="bg-button p-2 rounded-lg flex">
-                <button>
-                  <Minus />
-                </button>
-                <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls "
-                  type="number"
-                  placeholder="0"
-                />
-                <button>
-                  <Plus />
-                </button>
-              </div>
-              <div>
-                <button className="bg-purpleDark p-2 rounded-lg">
-                  <ShoppingCartSimple size={24} color="#FAFAFA" weight="fill" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-card relative w-[18rem] rounded-tr-3xl rounded-bl-3xl py-5">
-            <div className="text-center absolute w-full -top-[1.5rem] flex justify-center">
-              <img
-                className="mx-auto"
-                src={expressoCremoso}
-                alt="Café Expresso Tradicional"
-              />
-            </div>
-            <div className="text-center mt-24">
-              <div className="my-6">
-                <span className="text-yellowDark bg-yellowLight p-2 uppercase font-bold text-sm rounded-xl mx-2">
-                  tradicional
-                </span>
-              </div>
-            </div>
-            <div className="text-center">
-              <h3 className="font-baloo2 text-subtitle text-2xl px-2">
-                Expresso Cremoso
-              </h3>
-              <p className="text-label px-2 mt-5 mb-10">
-                Café expresso tradicional com espuma cremosa
-              </p>
-            </div>
-            <div className="px-4 flex items-center justify-around">
-              <div>
-                <p className="text-subtitle text-sm">
-                  R$<span className="font-baloo2 text-3xl ml-1">9,90</span>
-                </p>
-              </div>
-              <div className="bg-button p-2 rounded-lg flex">
-                <button>
-                  <Minus />
-                </button>
-                <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold  hide-number-controls"
-                  type="number"
-                  placeholder="0"
-                />
-                <button>
-                  <Plus />
-                </button>
-              </div>
-              <div>
-                <button className="bg-purpleDark p-2 rounded-lg">
-                  <ShoppingCartSimple size={24} color="#FAFAFA" weight="fill" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-card relative w-[18rem] rounded-tr-3xl rounded-bl-3xl py-5">
-            <div className="text-center absolute w-full -top-[1.5rem] flex justify-center">
-              <img
-                className="mx-auto"
-                src={expressoGelado}
-                alt="Café Expresso Tradicional"
-              />
-            </div>
-            <div className="text-center mt-24">
-              <div className="my-6">
-                <span className="text-yellowDark bg-yellowLight p-2 uppercase font-bold text-sm rounded-xl mx-2">
-                  tradicional
-                </span>
-                <span className="text-yellowDark bg-yellowLight p-2 uppercase font-bold text-sm rounded-xl mx-2">
-                  gelado
-                </span>
-              </div>
-            </div>
-            <div className="text-center">
-              <h3 className="font-baloo2 text-subtitle text-2xl px-2">
-                Expresso Gelado
-              </h3>
-              <p className="text-label px-2 mt-5 mb-10">
-                O tradicional café feito com água quente e grãos moídos
-              </p>
-            </div>
-            <div className="px-4 flex items-center justify-around">
-              <div>
-                <p className="text-subtitle text-sm">
-                  R$<span className="font-baloo2 text-3xl ml-1">9,90</span>
-                </p>
-              </div>
-              <div className="bg-button p-2 rounded-lg flex">
-                <button>
-                  <Minus />
-                </button>
-                <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls"
-                  type="number"
-                  placeholder="0"
-                />
-                <button>
-                  <Plus />
-                </button>
-              </div>
-              <div>
-                <button className="bg-purpleDark p-2 rounded-lg">
-                  <ShoppingCartSimple size={24} color="#FAFAFA" weight="fill" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-card relative w-[18rem] rounded-tr-3xl rounded-bl-3xl py-5">
-            <div className="text-center absolute w-full -top-[1.5rem] flex justify-center">
-              <img
-                className="mx-auto"
-                src={cafeComLeite}
-                alt="Café Expresso Tradicional"
-              />
-            </div>
-            <div className="text-center mt-24">
-              <div className="my-6">
-                <span className="text-yellowDark bg-yellowLight p-2 uppercase font-bold text-sm rounded-xl mx-2">
-                  tradicional
-                </span>
-                <span className="text-yellowDark bg-yellowLight p-2 uppercase font-bold text-sm rounded-xl mx-2">
-                  com leite
-                </span>
-              </div>
-            </div>
-            <div className="text-center">
-              <h3 className="font-baloo2 text-subtitle text-2xl px-2">
-                Café com Leite
-              </h3>
-              <p className="text-label px-2 mt-5 mb-10">
-                Meio a meio de expresso tradicional com leite vaporizado
-              </p>
-            </div>
-            <div className="px-4 flex items-center justify-around">
-              <div>
-                <p className="text-subtitle text-sm">
-                  R$<span className="font-baloo2 text-3xl ml-1">9,90</span>
-                </p>
-              </div>
-              <div className="bg-button p-2 rounded-lg flex">
-                <button>
-                  <Minus />
-                </button>
-                <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls"
-                  type="number"
-                  placeholder="0"
-                />
-                <button>
-                  <Plus />
-                </button>
-              </div>
-              <div>
-                <button className="bg-purpleDark p-2 rounded-lg">
-                  <ShoppingCartSimple size={24} color="#FAFAFA" weight="fill" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-card relative w-[18rem] rounded-tr-3xl rounded-bl-3xl py-5">
-            <div className="text-center absolute w-full -top-[1.5rem] flex justify-center">
-              <img
-                className="mx-auto"
-                src={latte}
-                alt="Café Expresso Tradicional"
-              />
-            </div>
-            <div className="text-center mt-24">
-              <div className="my-6">
-                <span className="text-yellowDark bg-yellowLight p-2 uppercase font-bold text-sm rounded-xl mx-2">
-                  tradicional
-                </span>
-                <span className="text-yellowDark bg-yellowLight p-2 uppercase font-bold text-sm rounded-xl mx-2">
-                  com leite
-                </span>
-              </div>
-            </div>
-            <div className="text-center">
-              <h3 className="font-baloo2 text-subtitle text-2xl px-2">Latte</h3>
-              <p className="text-label px-2 mt-5 mb-10">
-                Uma dose de café expresso com o dobro de leite e espuma cremosa
-              </p>
-            </div>
-            <div className="px-4 flex items-center justify-around">
-              <div>
-                <p className="text-subtitle text-sm">
-                  R$<span className="font-baloo2 text-3xl ml-1">9,90</span>
-                </p>
-              </div>
-              <div className="bg-button p-2 rounded-lg flex">
-                <button>
-                  <Minus />
-                </button>
-                <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls"
-                  type="number"
-                  placeholder="0"
-                />
-                <button>
-                  <Plus />
-                </button>
-              </div>
-              <div>
-                <button className="bg-purpleDark p-2 rounded-lg">
-                  <ShoppingCartSimple size={24} color="#FAFAFA" weight="fill" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-card relative w-[18rem] rounded-tr-3xl rounded-bl-3xl py-5">
-            <div className="text-center absolute w-full -top-[1.5rem] flex justify-center">
-              <img
-                className="mx-auto"
-                src={cappucino}
-                alt="Café Expresso Tradicional"
-              />
-            </div>
-            <div className="text-center mt-24">
-              <div className="my-6">
-                <span className="text-yellowDark bg-yellowLight p-2 uppercase font-bold text-sm rounded-xl mx-2">
-                  tradicional
-                </span>
-                <span className="text-yellowDark bg-yellowLight p-2 uppercase font-bold text-sm rounded-xl mx-2">
-                  com leite
-                </span>
-              </div>
-            </div>
-            <div className="text-center">
-              <h3 className="font-baloo2 text-subtitle text-2xl px-2">
-                Capuccino
-              </h3>
-              <p className="text-label px-2 mt-5 mb-10">
-                Bebida com canela feita de doses iguais de café, leite e espuma
-              </p>
-            </div>
-            <div className="px-4 flex items-center justify-around">
-              <div>
-                <p className="text-subtitle text-sm">
-                  R$<span className="font-baloo2 text-3xl ml-1">9,90</span>
-                </p>
-              </div>
-              <div className="bg-button p-2 rounded-lg flex">
-                <button>
-                  <Minus />
-                </button>
-                <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls"
-                  type="number"
-                  placeholder="0"
-                />
-                <button>
-                  <Plus />
-                </button>
-              </div>
-              <div>
-                <button className="bg-purpleDark p-2 rounded-lg">
-                  <ShoppingCartSimple size={24} color="#FAFAFA" weight="fill" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-card relative w-[18rem] rounded-tr-3xl rounded-bl-3xl py-5">
-            <div className="text-center absolute w-full -top-[1.5rem] flex justify-center">
-              <img
-                className="mx-auto"
-                src={macchiato}
-                alt="Café Expresso Tradicional"
-              />
-            </div>
-            <div className="text-center mt-24">
-              <div className="my-6">
-                <span className="text-yellowDark bg-yellowLight p-2 uppercase font-bold text-sm rounded-xl mx-2">
-                  tradicional
-                </span>
-                <span className="text-yellowDark bg-yellowLight p-2 uppercase font-bold text-sm rounded-xl mx-2">
-                  com leite
-                </span>
-              </div>
-            </div>
-            <div className="text-center">
-              <h3 className="font-baloo2 text-subtitle text-2xl px-2">
-                Macchiato
-              </h3>
-              <p className="text-label px-2 mt-5 mb-10">
-                Café expresso misturado com um pouco de leite quente e espuma
-              </p>
-            </div>
-            <div className="px-4 flex items-center justify-around">
-              <div>
-                <p className="text-subtitle text-sm">
-                  R$<span className="font-baloo2 text-3xl ml-1">9,90</span>
-                </p>
-              </div>
-              <div className="bg-button p-2 rounded-lg flex">
-                <button>
-                  <Minus />
-                </button>
-                <input
-                  className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls"
-                  type="number"
-                  placeholder="0"
-                />
-                <button>
-                  <Plus />
-                </button>
-              </div>
-              <div>
-                <button className="bg-purpleDark p-2 rounded-lg">
-                  <ShoppingCartSimple size={24} color="#FAFAFA" weight="fill" />
-                </button>
-              </div>
-            </div>
-          </div>
+            )
+          })}
         </div>
       </section>
     </main>
