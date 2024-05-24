@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import imagemCafe from '../../assets/imagem-cafe.png'
-import { CoffeeCard, CoffeeType } from '../../components/CoffeeCard'
+import { CoffeeCard, CoffeeType } from '../../components/Home/CoffeeCard'
 import coffeesData from '../../assets/data/coffees.json'
-
 import { v4 as uuidv4 } from 'uuid'
 
 import {
@@ -23,8 +22,9 @@ export function Home() {
 
   const [coffees, setCoffees] = useState<CoffeeType[]>([])
 
+  const [selectedCoffees, setSelectedCoffees] = useState<CoffeeType[]>([])
+
   useEffect(() => {
-    // Adicione ids únicos se necessário
     const coffeesWithId = coffeesData.map((coffee: Omit<CoffeeType, 'id'>) => ({
       ...coffee,
       id: uuidv4(),
@@ -32,7 +32,25 @@ export function Home() {
     setCoffees(coffeesWithId)
   }, [])
 
-  // console.log(coffees)
+  const handleAddToSelectedCoffees = (coffee: CoffeeType, count: number) => {
+    const storedCoffees = localStorage.getItem('selectedCoffees')
+    const updatedCoffees = storedCoffees ? JSON.parse(storedCoffees) : []
+
+    const existingCoffeeIndex = updatedCoffees.findIndex(
+      (c: CoffeeType) => c.id === coffee.id,
+    )
+    if (existingCoffeeIndex > -1) {
+      updatedCoffees[existingCoffeeIndex].count += count
+    } else {
+      updatedCoffees.push({ ...coffee, count })
+    }
+
+    localStorage.setItem('selectedCoffees', JSON.stringify(updatedCoffees))
+    setSelectedCoffees(updatedCoffees)
+  }
+
+  console.log({ selectedCoffees })
+
   return (
     <main className="mb-20">
       <section className="lg:flex">
@@ -88,17 +106,21 @@ export function Home() {
           />
         </div>
       </section>
+
       <section className="shop mt-28">
         <h2 className="font-baloo2 text-title text-5xl text-center md:text-left">
           Nossos Cafés
         </h2>
-        <div className="mt-14 flex flex-wrap justify-center gap-10">
+        <div className="mt-14 flex flex-wrap justify-start gap-10">
           {coffees.map((coffee) => {
             return (
               <CoffeeCard
                 key={coffee.id}
                 coffee={coffee}
-                onAddToCart={addToCart}
+                onAddToCart={(count) => {
+                  addToCart(count)
+                  handleAddToSelectedCoffees(coffee, count)
+                }}
               />
             )
           })}

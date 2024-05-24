@@ -4,9 +4,10 @@ import { MapPin, ShoppingCartSimple } from '@phosphor-icons/react'
 
 interface HeaderProps {
   totalItemCount: number
+  selectedCoffeeCount: number
 }
 
-export function Header({ totalItemCount }: HeaderProps) {
+export function Header({ totalItemCount, selectedCoffeeCount }: HeaderProps) {
   return (
     <header className="flex justify-between items-center  mt-10 mb-20">
       <NavLink to="/">
@@ -25,7 +26,7 @@ export function Header({ totalItemCount }: HeaderProps) {
           <button className="p-2 bg-yellowLight rounded-lg relative">
             <ShoppingCartSimple size={22} color="#C47F17" weight="fill" />
             <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-yellowDark rounded-full">
-              {totalItemCount}
+              {totalItemCount + selectedCoffeeCount}
             </span>
           </button>
         </NavLink>

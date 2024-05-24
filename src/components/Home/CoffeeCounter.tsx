@@ -3,12 +3,18 @@ import { useState } from 'react'
 
 interface CoffeeCounterProps {
   value: number
+  count: number // Essa propriedade já está sendo passada, então não precisa ser declarada novamente aqui
+
   onAddToCart: (count: number) => void
 }
 
-export function CoffeeCounter({ value, onAddToCart }: CoffeeCounterProps) {
+export function CoffeeCounter({
+  value,
+  onAddToCart,
+  count: initialCount, // Renomeando a propriedade count para initialCount
+}: CoffeeCounterProps) {
   const [isHovered, setIsHovered] = useState(false)
-  const [count, setCount] = useState(0)
+  const [currentCount, setCurrentCount] = useState(initialCount) // Renomeando a variável count para currentCount
 
   const formatPriceToBrl = (value: number) => {
     return value.toLocaleString('pt-BR', {
@@ -18,28 +24,28 @@ export function CoffeeCounter({ value, onAddToCart }: CoffeeCounterProps) {
   }
 
   function handleAddItem() {
-    setCount((count) => count + 1)
+    setCurrentCount((count) => count + 1)
   }
 
   function handleDecreaseItem() {
-    if (count > 0) {
-      setCount((count) => count - 1)
+    if (currentCount > 0) {
+      setCurrentCount((count) => count - 1)
     }
   }
 
   function handleInputChange(event: { target: { value: string } }) {
     const newCount = parseInt(event.target.value, 10)
     if (!isNaN(newCount) && newCount >= 0) {
-      setCount(newCount)
+      setCurrentCount(newCount)
     }
   }
 
   function handleAddShoppingCart() {
-    const total = value * count
+    const total = value * currentCount
     console.log(
-      `Esse café custa ${value}. Você Adicionou ${count} items no carrinho o total agora é ${total}`,
+      `Esse café custa ${value}. Você Adicionou ${currentCount} items no carrinho o total agora é ${total}`,
     )
-    onAddToCart(count)
+    onAddToCart(currentCount)
   }
 
   return (
@@ -63,7 +69,7 @@ export function CoffeeCounter({ value, onAddToCart }: CoffeeCounterProps) {
         <input
           className="w-6 mx-1 bg-button text-center text-subtitle font-bold hide-number-controls"
           type="number"
-          value={count}
+          value={currentCount} // Atualizando para currentCount
           onChange={handleInputChange}
         />
         <button

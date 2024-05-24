@@ -8,13 +8,12 @@ export interface CoffeeType {
   title: string
   description: string
   price: number
+  count: number
 }
 
 interface CoffeeCardProps {
   coffee: CoffeeType
   onAddToCart: (count: number) => void
-  // coffees: CoffeeType[]
-  // setCofees: React.Dispatch<React.SetStateAction<CoffeeType[]>>
 }
 
 export function CoffeeCard({ coffee, onAddToCart }: CoffeeCardProps) {
@@ -43,7 +42,11 @@ export function CoffeeCard({ coffee, onAddToCart }: CoffeeCardProps) {
         </h3>
         <p className="text-label px-2 mt-5 mb-10">{coffee.description}</p>
       </div>
-      <CoffeeCounter onAddToCart={onAddToCart} value={coffee.price} />
+      <CoffeeCounter
+        onAddToCart={onAddToCart}
+        value={coffee.price}
+        count={coffee.count}
+      />
     </div>
   )
 }
