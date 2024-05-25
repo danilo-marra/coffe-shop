@@ -10,10 +10,7 @@ export function DefaultLayout() {
   }
   return (
     <div className="md:container md:mx-auto mx-5">
-      <Header
-        selectedCoffeeCount={totalItemCount}
-        totalItemCount={totalItemCount}
-      />
+      <Header totalItemCount={totalItemCount} />
       <Outlet context={{ addToCart, totalItemCount }} />
     </div>
   )
