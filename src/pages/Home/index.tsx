@@ -111,7 +111,7 @@ export function Home() {
         <h2 className="font-baloo2 text-title text-5xl text-center md:text-left">
           Nossos Cafés
         </h2>
-        <div className="mt-14 flex flex-wrap justify-start gap-10">
+        <div className="mt-14 flex flex-wrap justify-center md:justify-start gap-10">
           {coffees.map((coffee) => {
             return (
               <CoffeeCard
